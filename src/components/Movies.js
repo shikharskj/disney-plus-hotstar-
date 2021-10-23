@@ -1,47 +1,30 @@
 import React from 'react'
 import styled from 'styled-components'
+import { selectMovies } from "../features/movies/moviesSlice";
+import { useSelector } from 'react-redux';
 
 
 const Movies = () => {
+
+    const movies = useSelector(selectMovies); 
+    console.log("movies_List : ", movies);
+    // if(!movies.length) {
+    //     return <h1> Loading ... </h1>
+    // }
+
     return (
         <Container>
             <h4> Recommended for You </h4>
             <Content>
-                <Wrap>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBbGRH9mHnqi5rHljNRXp-m7oD_ZEO0WorSA&usqp=CAU"
-                     alt="" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs-Vqx9GpEzm3WQJsgw0Q9nU1Jf3mfzEX2qQ&usqp=CAU"
-                     alt="" />
-                </Wrap> 
-                <Wrap>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThZIjmqy_E0W_dw8m388weuy5DGyH0lF5aiA&usqp=CAU"
-                     alt="" />
-                </Wrap> 
-                <Wrap>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHeVIuWTmk-ON0P3XzsdIVMOFDB_H6Ah0b0Q&usqp=CAU"
-                     alt="" />
-                </Wrap> 
-            </Content>
-            <h4> New & Upcoming </h4>
-            <Content>
-                <Wrap>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBbGRH9mHnqi5rHljNRXp-m7oD_ZEO0WorSA&usqp=CAU"
-                     alt="" />
-                </Wrap>
-                <Wrap>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs-Vqx9GpEzm3WQJsgw0Q9nU1Jf3mfzEX2qQ&usqp=CAU"
-                     alt="" />
-                </Wrap> 
-                <Wrap>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThZIjmqy_E0W_dw8m388weuy5DGyH0lF5aiA&usqp=CAU"
-                     alt="" />
-                </Wrap> 
-                <Wrap>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHeVIuWTmk-ON0P3XzsdIVMOFDB_H6Ah0b0Q&usqp=CAU"
-                     alt="" />
-                </Wrap> 
+                { 
+                    movies.length ?
+                    movies.map( movie => (
+                        <Wrap key={movie.id}>   
+                            <h1>Here</h1>
+                            <img src={movie.cardImg} alt="" />
+                        </Wrap>
+                    )) : <h1> Loading ... </h1>
+                }
             </Content>
         </Container>
     )
