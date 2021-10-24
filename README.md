@@ -1,33 +1,48 @@
-<h3> A fully responsive disney Hotstar application using react, redux, and styled components, etc with firebase authentication </h3>
+# 🔴  Disney Plus Hotstar Readme     ## <a href="https://disney-plus-hotstar-0421.web.app/" target="_blank">LIVE DEMO</a>
+
+## Description
+A fully responsive disney Hotstar application using react, redux, and styled components, etc with firebase authentication 
 <br>
 
-### `Login Page powered by Firease authentication`
+
+
+### `-> Login Page powered by Firease authentication`
 <br>
 
 ![login-lap](https://user-images.githubusercontent.com/73573652/138610791-a4352acf-d336-4525-9006-96cefcb6bc7c.png)
 
 
-### `Home Page with a sliding carousel and a list of your favourite movies...`
+### `-> Home Page with a sliding carousel and a list of your favourite movies...`
 <br>
 
 ![home-lap](https://user-images.githubusercontent.com/73573652/138610850-48acfabe-adae-4053-8ae4-c00d3b07c8b0.png)
 
 
-### `Detail Page`
+### `-> Detail Page`
 <br>
 
-
+<br>
 ![detail-lap](https://user-images.githubusercontent.com/73573652/138610889-0650b9fd-2dd5-4059-acf5-15b3dd0a1067.png)
-
+<br>
 <br>
 
-### `The App is also mobile responsive`
+### `-> The App is also mobile responsive`
 <br>
-
-![login_mobile](https://user-images.githubusercontent.com/73573652/138610939-a6539441-d76c-4c0a-812a-6ea5075b7728.png)
-![home_mobile](https://user-images.githubusercontent.com/73573652/138610937-1c05b985-82ba-4726-8f69-76d9cd8ed086.png)
-![detail_mobile](https://user-images.githubusercontent.com/73573652/138610936-39796298-5b26-453e-ba04-25e6b418464f.png)
-
+<br>
+<div style="display: flex">
+  <img src="https://user-images.githubusercontent.com/73573652/138610939-a6539441-d76c-4c0a-812a-6ea5075b7728.png" width="400" height="790">
+  <img src="https://user-images.githubusercontent.com/73573652/138610937-1c05b985-82ba-4726-8f69-76d9cd8ed086.png" width="400" height="790">
+  <img src="https://user-images.githubusercontent.com/73573652/138610936-39796298-5b26-453e-ba04-25e6b418464f.png" width="400" height="790">
+</div>
+<br>
+<br>
+### `-> The App is also has cool animations like loading etc...`
+<br>
+<br>
+<div style="display: flex">
+  <img src="https://user-images.githubusercontent.com/73573652/138611455-d3a0d4d1-ac39-4e53-87d7-bd85de8555b9.png" width="600" height="380">
+  <img src="https://user-images.githubusercontent.com/73573652/138611461-83ea7414-8802-47d7-81f2-262929993065.png" width="600" height="380">
+</div>
 
 <br>
 <br>
