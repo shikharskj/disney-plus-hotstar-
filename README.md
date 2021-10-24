@@ -1,6 +1,9 @@
 <h3> A fully responsive disney Hotstar application using react, redux, and styled components, etc with firebase authentication </h3>
+<br>
 
 ### `Login Page powered by Firease authentication`
+<br>
+![login-lap](https://user-images.githubusercontent.com/73573652/138610738-0713478c-f614-440f-accd-f9a6b07722a6.png)
 
 
 
@@ -12,6 +15,8 @@
 
 
 
+<br>
+<br>
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts
