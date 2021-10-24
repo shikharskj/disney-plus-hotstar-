@@ -13,9 +13,13 @@
 ![home-lap](https://user-images.githubusercontent.com/73573652/138610850-48acfabe-adae-4053-8ae4-c00d3b07c8b0.png)
 
 
+### `Detail Page`
+<br>
 
 
+![detail-lap](https://user-images.githubusercontent.com/73573652/138610889-0650b9fd-2dd5-4059-acf5-15b3dd0a1067.png)
 
+<br>
 
 
 
