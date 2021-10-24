@@ -7,6 +7,10 @@
 ![login-lap](https://user-images.githubusercontent.com/73573652/138610791-a4352acf-d336-4525-9006-96cefcb6bc7c.png)
 
 
+### `Home Page with a sliding carousel and a list of your favourite movies...`
+<br>
+
+![home-lap](https://user-images.githubusercontent.com/73573652/138610850-48acfabe-adae-4053-8ae4-c00d3b07c8b0.png)
 
 
 
