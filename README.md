@@ -1,6 +1,6 @@
 <h3> A fully responsive disney Hotstar application using react, redux, and styled components, etc with firebase authentication </h3>
 
-Login Page powered by Firease authentication
+
 
 
 
