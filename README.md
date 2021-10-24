@@ -3,7 +3,7 @@
 
 ### `Login Page powered by Firease authentication`
 <br>
-![login-lap](https://user-images.githubusercontent.com/73573652/138610738-0713478c-f614-440f-accd-f9a6b07722a6.png)
+https://user-images.githubusercontent.com/73573652/138610738-0713478c-f614-440f-accd-f9a6b07722a6.png
 
 
 
