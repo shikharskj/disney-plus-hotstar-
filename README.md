@@ -21,6 +21,12 @@
 
 <br>
 
+### `The App is also mobile responsive`
+<br>
+
+![login_mobile](https://user-images.githubusercontent.com/73573652/138610939-a6539441-d76c-4c0a-812a-6ea5075b7728.png)
+![home_mobile](https://user-images.githubusercontent.com/73573652/138610937-1c05b985-82ba-4726-8f69-76d9cd8ed086.png)
+![detail_mobile](https://user-images.githubusercontent.com/73573652/138610936-39796298-5b26-453e-ba04-25e6b418464f.png)
 
 
 <br>
