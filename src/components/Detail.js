@@ -1,41 +1,95 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useParams } from "react-router-dom";
+import db from '../firebase';
+import { useHistory } from 'react-router-dom';
+import FadeLoader from "react-spinners/FadeLoader";
 
 
 const Detail = () => {
+    const history = useHistory();
+    const { id } = useParams();
+    const [movie, setMovie] = useState({});
+    useEffect(() => {
+        //grab the movie info from db
+        
+        db.collection('movies')
+            .doc(id)
+            .get()
+            .then( doc => {
+                if(doc.exists){
+                    // save the movie data 
+                    setTimeout(() => {
+                        setMovie(doc.data());
+                        console.log("movie : ", doc.data());
+                    }, 300);
+                    
+                } else {
+                    //redirect to home page
+                }
+            })
+        return () => {
+            
+        };
+    }, []);
+
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        setLoading(true);
+        setTimeout(() => {
+        setLoading(false);
+        }, 3000);
+        return () => {
+        
+        };
+    }, []);
+
     return (
         <Container>
-            <Background>
-                <img src="https://i1.wp.com/www.epicheroes.com/wp-content/uploads/2021/05/BAO-Disney-Pixar-Full-Short-Film-Official-Promos-Incredibles.jpg?fit=1280%2C720&ssl=1"
-                 alt="" />
-            </Background>
-            <ImageTitle>
-                <img src="https://i.etsystatic.com/7875522/r/il/4566d4/2682355138/il_300x300.2682355138_gf4g.jpg" alt="" />
-            </ImageTitle>
-            <Controls>
-                <PlayButton>
-                    <img src="/images/play-icon-black.png" alt="" />
-                    <span> PLAY </span>
-                </PlayButton>
-                <TrailerButton>
-                    <img src="/images/play-icon-white.png" alt="" />
-                    <span> Trailer </span>
-                </TrailerButton>
-                <AddButton>
-                    <span> + </span>
-                </AddButton>
-                <GroupWatchButton>
-                    <img src="/images/group-icon.png" alt="" />
-                </GroupWatchButton>
-            </Controls>
-            <SubTitle>
-                Text
-            </SubTitle>
-            <Description>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                Temporibus, magni! Quibusdam aliquid commodi, explicabo facilis ut ipsum ab perspiciatis 
-                necessitatibus vitae placeat odio accusamus enim labore ad similique numquam! Sit!
-            </Description>
+            {
+                ( movie && !loading ) ? 
+                (<>
+                    <Background>
+                        <img src={ movie.backgroundImg }
+                        alt="" />
+                    </Background>
+                    <ImageTitle>
+                        <img src={movie.titleImg} alt="" />
+                    </ImageTitle>
+                    <Controls>
+                        <PlayButton>
+                            <img src="/images/play-icon-black.png" alt="" />
+                            <span> PLAY </span>
+                        </PlayButton>
+                        <TrailerButton>
+                            <img src="/images/play-icon-white.png" alt="" />
+                            <span> Trailer </span>
+                        </TrailerButton>
+                        <AddButton>
+                            <span> + </span>
+                        </AddButton>
+                        <GroupWatchButton>
+                            <img src="/images/group-icon.png" alt="" />
+                        </GroupWatchButton>
+                    </Controls>
+                    <SubTitle>
+                        { movie.subTitle }
+                    </SubTitle>
+                    <Description>
+                        { movie.description }
+                    </Description>
+                </>
+                ) : (
+                    <>
+                        <h1> Loading ... </h1> 
+                        <FadeLoader color="white" loading={loading} 
+                        height="20"
+                         width="5" radius="8" margin="2"
+                        /> 
+                    </>
+                )
+            }
         </Container>
     )
 }
@@ -60,7 +114,16 @@ const Background = styled.div`
         width: 100%;
         height: 100%;
         object-fit: cover;
+        @media (max-width: 768px) {
+            object-fit: contain;
+            
+          }
     }
+    @media (max-width: 768px) {
+        position: relative;
+        margin-top: 20px;
+    }
+
 `
 
 const ImageTitle = styled.div`
@@ -73,6 +136,13 @@ const ImageTitle = styled.div`
         height: 100%;
         width: 100%;
         object-fit: contain; 
+        
+    }
+    @media (max-width: 768px) {
+        height: 8vh;
+        width: 15vw; 
+        margin-top: -1vh;
+        // margin-bottom: -1vh;
     }
 `
 
@@ -97,6 +167,11 @@ const PlayButton = styled.button`
     &: hover {
         background: rgb(198, 198, 198);
     }
+    @media (max-width: 768px) {
+        padding: 2px 4px;
+        margin-right: 10px;
+        height: 36px;
+      }
 `
 
 const TrailerButton = styled(PlayButton)`
@@ -122,6 +197,11 @@ const AddButton = styled.button`
         font-size: 30px;
         color: white;
     }
+    @media (max-width: 768px) {
+        padding: 2px 4px;
+        margin-right: 10px;
+        height: 30px;
+        width: 33px;      }
 `
 
 const GroupWatchButton = styled(AddButton)`
@@ -133,6 +213,9 @@ const SubTitle = styled.div`
     font-size: 15px;
     min-height: 20px;
     margin-top: 26px;
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
 `
 
 const Description = styled.div`
@@ -141,6 +224,9 @@ const Description = styled.div`
     margin-top: 16px;
     color: rgb(249, 249, 249);
     max-width: 760px;
-    
+    @media (max-width: 768px) {
+        font-size: 16px;
+        text-align: justify;
+    }
 `
 

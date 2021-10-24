@@ -37,11 +37,15 @@ export default ImgSlider
 
 const Carousel = styled(Slider)`
     margin-top: 20px;
+   
 
     ul li button {
         &::before {
             font-size: 10px;
             color: gray;
+            @media (max-width: 768px) {
+                font-size: 8px;
+            }
         }
     }
 
@@ -55,6 +59,9 @@ const Carousel = styled(Slider)`
 
     button {
         z-index: 1;
+    }
+    @media (max-width: 768px) {
+        margin-top: 5px;
     }
 `
 
@@ -72,6 +79,12 @@ const Wrap = styled.div`
 
         &:hover {
             border: 4px solid rgba(249, 249, 249, 0.8);
+        }
+        @media (max-width: 768px) {
+            height: 16vh;
+            border-radius: 7px;
+            border: 3px solid transparent;
+
         }
     }
 `

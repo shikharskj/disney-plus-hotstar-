@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { selectMovies } from "../features/movies/moviesSlice";
 import { useSelector } from 'react-redux';
-
+import { Link } from 'react-router-dom';
 
 const Movies = () => {
 
@@ -11,18 +11,21 @@ const Movies = () => {
     // if(!movies.length) {
     //     return <h1> Loading ... </h1>
     // }
-
+    let count = 0;
     return (
         <Container>
             <h4> Recommended for You </h4>
             <Content>
                 { 
                     movies.length ?
-                    movies.map( movie => (
+                    movies.map( (movie, index) => (
+                        
                         <Wrap key={movie.id}>   
-                            <h1>Here</h1>
-                            <img src={movie.cardImg} alt="" />
+                            <Link to={`/detail/${movie.id}`} >
+                                <img src={movie.cardImg} alt="" />
+                            </Link>
                         </Wrap>
+                        
                     )) : <h1> Loading ... </h1>
                 }
             </Content>
@@ -33,7 +36,13 @@ const Movies = () => {
 export default Movies
 
 const Container = styled.div`
-
+@media (max-width: 768px) {
+    h4{
+        font-size: 12px;
+        font-weight: 300;
+        letter-spacing: 1px; 
+    }
+}
 `
 
 const Content = styled.div`
@@ -42,7 +51,15 @@ const Content = styled.div`
     display: grid;
     grid-gap: 25px;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-
+    @media (max-width: 768px) {
+        margin-top: 10px;
+        padding: 0 0 15px;
+        grid-gap: 12px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        h4{
+            // font-size: 8px;
+        }
+    }
 `
 
 const Wrap = styled.div`
@@ -58,6 +75,9 @@ const Wrap = styled.div`
         width: 100%;
         height: 100%;
         object-fit: cover; 
+        @media (max-width: 768px) {
+            object-fit: contain; 
+          }
     }
 
     &:hover {
@@ -66,4 +86,7 @@ const Wrap = styled.div`
         box-shadow: rgb(0 0 0 / 80%) 0px 40px 58px -16px,
         rgb(0 0 0 / 73%) 0px 30px 22px -10px;
     }
+    @media (max-width: 768px) {
+        border: 1px solid rgba(249, 249, 249, 0.1);
+        border-radius: 5px;    }
 `

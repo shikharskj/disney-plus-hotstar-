@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from "react-redux";
-import {auth, provider} from '../firebase';
+import { auth, provider } from '../firebase';
 import { useHistory } from "react-router-dom";
-import {useEffect} from 'react'
+import { useEffect } from 'react'
 import { 
     selectUserName, 
     selectUserEmail, 
@@ -18,61 +18,70 @@ const Header = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const userName = useSelector(selectUserName);
+    console.log("userName", userName);
     const userPhoto = useSelector(selectUserPhoto);
+    console.log("userPhoto", userPhoto);
+
     const userEmail = useSelector(selectUserEmail);
     const userId = useSelector(selectUserId);
 
+    // const view = document.
+
     useEffect(() => {
-        auth.onAuthStateChanged( async user => {
-            if(user){
-                setUser(user);
+        auth.onAuthStateChanged(async (user) => {
+            if(user) {
+                dispatch(setUserLoginDetails({
+                    user: user.displayName,
+                    email: user.email,
+                    photo: user.photoURL,
+                    user_id: user.uid,
+                }));
                 history.push('/home');
             }
-        })
-        return () => {
-            
-        };
-    }, [userName]);
+        });
+    },[userName])
 
-    const handleAuth = () => {
-        if(!userName){
-            auth.signInWithPopup(provider)
+    const signIn = () => {
+        auth.signInWithPopup(provider)
             .then( result => {
-                setUser(result.user);
-                localStorage.setItem('Name', result.additionalUserInfo.profile.name);
-                localStorage.setItem('email', result.additionalUserInfo.profile.email);
-                localStorage.setItem('id', result.additionalUserInfo.profile.id);
-                localStorage.setItem('picture', result.additionalUserInfo.profile.picture);
+                console.log(result);
+                let pic = result.additionalUserInfo.profile.picture;
+                let user = result.user;
+                dispatch(setUserLoginDetails({
+                    user: user.displayName,
+                    email: user.email,
+                    photo: pic,
+                    user_id: user.uid,
+                }));
+                history.push('/home');
             }).catch( err => {
                 alert(err.message);
             })
-        } else if(userName){
-            auth.signOut()
-                .then( () => {
-                    dispatch(setSignOutState());
-                    history.push('/');
-                }).catch( err => {
-                    alert(err.message);
-                })
+    }
+    
+    const signOut = () => {
+        auth.signOut()
+            .then( () => {
+                dispatch(setSignOutState());
+                history.push('/');
+            })
+    }
+
+    const takeToHome = () => {
+        if(userName) {
+            history.push('/home');
         }
     }
 
-    const setUser = (user) => {
-        dispatch(setUserLoginDetails({
-            user: user.displayName,
-            email: user.email,
-            photo: user.photoURL,
-            id: user.id,
-        }))
-    };
-
-
     return (
-        <Nav>
-            <Logo src="/images/logo.svg" />
+        <Nav> 
+            <Logo onClick={takeToHome} src="/images/logo.svg" />
             {
-                userName ? 
-                <Login onClick={handleAuth}> Login </Login> :
+                !userName ? (
+                    <LoginContainer>
+                        <Login onClick={signIn}> Login </Login>
+                    </LoginContainer>
+                ):
                 <>
                     <NavMenu>
                         <a>
@@ -100,12 +109,19 @@ const Header = () => {
                             <span> SERIES </span>
                         </a>
                     </NavMenu>
-                    <SignOut>
-                        <UserImage src="https://yt3.ggpht.com/yti/APfAmoEpli3xycdDSK4kod2aCI_k1TewQZbntnwko73fnw=s108-c-k-c0x00ffffff-no-rj" />
+                    {/* <SignOut>
+                        <UserImage onClick={signOut} 
+                            src="https://yt3.ggpht.com/yti/APfAmoEpli3xycdDSK4kod2aCI_k1TewQZbntnwko73fnw=s108-c-k-c0x00ffffff-no-rj" />
                         <DropDown>
-                            <span onClick={handleAuth}>Sign Out</span>
+                            <span >Sign Out</span>
                         </DropDown>
-                    </SignOut>
+                    </SignOut> */}
+                        <UserImage src={userPhoto} alt={userName} />
+                        <Logout onClick={signOut}>
+                            <span class="material-icons">
+                                exit_to_app
+                            </span>
+                        </Logout>
                 </>
             }
         </Nav>
@@ -121,11 +137,21 @@ const Nav = styled.nav`
     align-items: center; 
     padding: 0 36px;
     overflow-x: hidden;
+    @media (max-width: 768px) {
+        justify-content: space-between; 
+        height: 50px;
+        padding: 0 18px;    
+    }
 `
 const Logo = styled.img`
     width: 80px;
+    cursor: pointer;
+    @media (max-width: 768px) {
+        width: 70px;
+    }
 
 `
+
 const NavMenu = styled.div`
     display: flex;
     flex: 1;
@@ -169,16 +195,66 @@ const NavMenu = styled.div`
             }
         }
     }
+    @media (max-width: 768px) {
+        display: none;
+    }
 `
 const UserImage =styled.img`
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    margin-right: 15px;
     cursor: pointer;
+    @media (max-width: 768px) {
+        width: 32px;
+        height: 32px;   
+        margin-right: -45vw;
+        margin-bottom: -5px
+    }
 `
-const Login =styled.div`
+const LoginContainer =styled.div`
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+`
 
+
+const Login =styled.div`
+    border: 1px solid #f9f9f9;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.6);
+    font-weight: 600;
+    transition: all 0.4s ease-in 0s;
+
+    &:hover {
+        background-color: #f9f9f9;
+        color: black;
+        border-color: transparent;
+    }
+
+    @media (max-width: 768px) {
+        padding: 5px 10px;
+        font-weight: 500;
+        font-size: 12px;
+    }
 `
+const Logout =styled(Login)`
+    border: none;
+    span {
+        font-size: 35px;
+        margin-left: -15px;
+    }
+    @media (max-width: 768px) {
+        margin-right: -15px; 
+        font-size: 15px;
+        font-weight: 300;
+    }
+`
+
 
 const DropDown =styled.div`
     position: absolute;
@@ -215,3 +291,42 @@ const SignOut =styled.div`
         }
     }
 `
+
+
+
+// const handleAuth = () => {
+    //     if(!userName){
+    //         auth.signInWithPopup(provider)
+    //         .then( result => {
+    //             setUser(result.user);
+    //             localStorage.setItem('Name', result.additionalUserInfo.profile.name);
+    //             localStorage.setItem('email', result.additionalUserInfo.profile.email);
+    //             localStorage.setItem('id', result.additionalUserInfo.profile.id);
+    //             localStorage.setItem('picture', result.additionalUserInfo.profile.picture);
+    //         }).catch( err => {
+    //             alert(err.message);
+    //         })
+    //     } else if(userName){
+    //         auth.signOut()
+    //             .then( () => {
+    //                 dispatch(setSignOutState());
+    //                 history.push('/');
+    //             }).catch( err => {
+    //                 alert(err.message);
+    //             })
+    //     }
+    // }
+
+
+
+    // useEffect(() => {
+    //     auth.onAuthStateChanged( async user => {
+    //         if(user){
+    //             setUser(user);
+    //             history.push('/home');
+    //         }
+    //     })
+    //     return () => {
+            
+    //     };
+    // }, [userName]);
